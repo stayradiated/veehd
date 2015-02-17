@@ -2,6 +2,8 @@
 
 > veehd.com for the command line
 
+![screenshot](screenshot.jpg)
+
     go install github.com/stayradiated/veehd
     
     veehd "search query"

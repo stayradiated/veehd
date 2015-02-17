@@ -40,7 +40,6 @@ func (m Movie) Pretty(id int) string {
 
 func main() {
 	query := strings.Join(os.Args[1:], " ")
-
 	Search("\"" + strings.Replace(query, " ", "+", -1) + "\"")
 }
 
