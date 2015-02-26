@@ -55,6 +55,10 @@ func Search(query string) {
 
 	// Loop through each result
 	doc.Find("table.movieList > tbody > tr").Each(func(i int, s *goquery.Selection) {
+		if s.Find(".error_message").Length() > 0 {
+			return
+		}
+
 		result := new(Movie)
 
 		result.Title = s.Find("td > h2 > a").Text()
@@ -72,12 +76,19 @@ func Search(query string) {
 		results = append(results, result)
 	})
 
+	if len(results) <= 0 {
+		fmt.Println("No results found for", query)
+		return
+	}
+
 	fmt.Printf("Found %d results...\n", len(results))
 
 	for i, result := range results {
 		ScrapeMovie(result)
 		fmt.Println(result.Pretty(i))
 	}
+
+	fmt.Println("Select movie: ")
 
 	var i int
 	_, err = fmt.Scanf("%d", &i)
